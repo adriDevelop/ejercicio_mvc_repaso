@@ -15,7 +15,8 @@ class V_Reseña extends Vista{
 
         // Y aquí, devolveremos un formulario con un botón que ponga, añadir nueva reseña
         // Aquí, según el ejercicio, debemos de generar un formulario para insertar una nueva reseña del artículo
-        ?>
+        if (is_array($datos)){
+            ?>
         <br>
         <form action="<?=$_SERVER['PHP_SELF']?>" method='POST'>
             <fieldset>
@@ -54,6 +55,24 @@ class V_Reseña extends Vista{
             }
         echo "</tbody></table>";
         $this->fin_html();
+        }else {
+            echo "<h2>$datos</h2>";
+            ?>
+            <br>
+            <form action="<?=$_SERVER['PHP_SELF']?>" method='POST'>
+                <fieldset>
+                    <legend>Inserta una nueva reseña</legend>
+                    <input type="hidden" name="referencia" id="referencia" value="<?=$_SESSION['referencia']?>">
+                    <label for="clasificación">Clasificación</label>
+                    <input type="number" id="clasificacion" name="clasificacion" required>
+                    <label for="comentario">Comentario</label>
+                    <input type="text" id="comentario" name="comentario">
+                </fieldset>
+                <button type="submit" id="idp" name="idp" value="insertar_reseña">Insertar nueva reseña</button>
+            </form>
+            <br>
+            <?php
+        }
     }
 
     // Terminada la vista, debemos de generar el modelo de Insertar_Reseña y la vista de esta

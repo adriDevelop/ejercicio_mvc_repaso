@@ -28,7 +28,7 @@ class Mvc_Orm_Reseña extends ORMReseña{
             if($reseñas){
                 return $reseñas;
             } else {
-                throw new Exception("No se ha encontrado la referencia");
+                return "No hay reseñas para este artículo. ¡Sé el primero en añadir una!";
             }
             
         }

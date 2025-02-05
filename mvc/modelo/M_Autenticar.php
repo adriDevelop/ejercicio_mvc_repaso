@@ -19,9 +19,7 @@ class M_Autenticar implements Modelo{
         $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
         $email = filter_var($email, FILTER_VALIDATE_EMAIL);
 
-        $clave = $_POST['clave'];
-
-        $articulos = [];
+        
 
         // Y una vez los tengamos validados, realizaremos la validación con la base de datos
         if (!isset($_COOKIE['jwt'])){
@@ -32,7 +30,9 @@ class M_Autenticar implements Modelo{
             // E instanciamos la clase Mvc_Orm_Autenticar
             $orm_autenticar = new Mvc_Orm_Autenticar();
             $cliente = $orm_autenticar->recogeUsuarioEmail($email);
+            $clave = $_POST['clave'];
 
+            $articulos = [];
             // Ahora, ya tendremos el cliente de la base de datos con todos sus datos
             // Ahora, ya podremos autenticarlo
             if (password_verify($clave, $cliente['clave'])){
@@ -53,12 +53,15 @@ class M_Autenticar implements Modelo{
                 $_SESSION['cliente'] = $cliente['nombre'] . " " . $cliente['apellidos'];
 
                 // Datos a devolver
-                $articulos = $orm_autenticar->recogerDatosArticulos();
+                // $articulos = $orm_autenticar->recogerDatosArticulos();
+                $articulos = $orm_autenticar->get_envios($cliente['nif']);
+
+                $_SESSION['articulos'] = $articulos;
             }else {
                 throw new Exception("La clave no es correcta");
             }
         }
-        return $articulos;
+        return $_SESSION['articulos'];
     }
 }
 

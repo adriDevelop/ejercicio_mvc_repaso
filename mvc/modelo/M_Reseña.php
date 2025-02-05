@@ -22,9 +22,8 @@ class M_Reseña implements Modelo{
     public function despacha(): mixed
     {
         // Aquí debemos de validar la reseña que nos llega por el formulario del botón Añadir Reseña
-        $referencia = filter_input(INPUT_POST, 'referencia', FILTER_SANITIZE_SPECIAL_CHARS);
+        $referencia = filter_input(INPUT_POST, 'referencia', FILTER_SANITIZE_SPECIAL_CHARS);    
         $_SESSION['referencia'] = $referencia;
-
         // Y ahora, instanciamos un objeto de la clase Mvc_Orm_Reseña para llamar al método que ejecuta la consulta SQL
         // y le pasamos la referencia obtenida del formulario
         $mvc_orm_reseña = new Mvc_Orm_Reseña();

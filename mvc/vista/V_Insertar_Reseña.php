@@ -39,7 +39,7 @@ class V_Insertar_Reseña extends Vista{
         ?>
         <form action="<?=$_SERVER['PHP_SELF']?>" method="POST">
             <input type="hidden" id="referencia" name="referencia" value="<?=$datos['referencia']?>">
-            <button type="submit" id="idp" name="idp" value="reseña">Volver a las reseñas</button>
+            <button type="submit" id="idp" name="idp" value="autenticar">Volver a las reseñas</button>
         </form>
         <?
         $this->fin_html();

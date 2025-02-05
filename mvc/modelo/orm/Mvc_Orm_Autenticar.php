@@ -42,6 +42,20 @@ class Mvc_Orm_Autenticar extends ORMCliente{
             return $productos;
         }
     }
+
+    public function get_envios(string $nif): array{
+        $sql = "SELECT * FROM pedido INNER JOIN lpedido ON pedido.npedido = lpedido.npedido INNER JOIN articulo ON lpedido.referencia = articulo.referencia WHERE pedido.nif = :nif";
+
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue(':nif', $nif);
+
+        if ($stmt->execute()){
+            $datos = $stmt->fetchAll();
+            return $datos;
+        } else {
+            throw new Exception("Error al obtener los envíos del cliente", 4004);
+        }
+    }
 }
 
 ?>
